@@ -16,9 +16,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "[Company Name] | Masala & Spices",
+  title: {
+    template: "%s | RASAM Spices",
+    default: "RASAM Spices | Authentic Indian Spices & Masalas",
+  },
   description:
-    "[Company description] Placeholder text for the masala and spices website. Final copy to be supplied by the client.",
+    "RASAM Spices brings the authentic taste of India to every home: ground spices, blended masalas and seasonings. Business enquiries welcome from retailers, wholesalers and distributors.",
 };
 
 export default function RootLayout({
@@ -32,8 +35,16 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-ivory focus:px-4 focus:py-2"
+        >
+          Skip to content
+        </a>
         <Header />
-        <main className="flex-1">{children}</main>
+        <main id="main" className="flex-1">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
