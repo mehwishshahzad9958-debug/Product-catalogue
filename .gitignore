@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# original client assets (high-resolution source files; web copies live in public/images/products)
+/inventories/

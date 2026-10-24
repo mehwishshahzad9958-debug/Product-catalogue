@@ -57,20 +57,21 @@ export default function ProductCard({ product, variant = "compact" }: ProductCar
           </p>
         )}
 
-        <div className="mt-auto pt-6">
-          {detailed ? (
+        <div className="mt-auto flex flex-col items-start gap-3 pt-6">
+          <Link
+            href={`/products/${product.id}`}
+            className="text-sm font-semibold text-spice underline decoration-spice/30 underline-offset-4 hover:decoration-spice"
+          >
+            {product.backImage
+              ? `View front and back packaging of ${product.name}`
+              : `View ${product.name}`}
+          </Link>
+          {detailed && (
             <Link
               href="/contact"
-              className="text-sm font-semibold text-spice underline decoration-spice/30 underline-offset-4 hover:decoration-spice"
+              className="text-sm font-semibold text-earth-muted underline decoration-earth/20 underline-offset-4 hover:text-spice hover:decoration-spice"
             >
               Enquire about {product.name}
-            </Link>
-          ) : (
-            <Link
-              href={`/products#${product.id}`}
-              className="text-sm font-semibold text-spice underline decoration-spice/30 underline-offset-4 hover:decoration-spice"
-            >
-              View {product.name}
             </Link>
           )}
         </div>

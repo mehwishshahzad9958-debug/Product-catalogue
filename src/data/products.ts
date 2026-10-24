@@ -21,13 +21,17 @@ export type Category = {
   summary: string;
 };
 
+export type ProductPhoto = { src: string; alt: string };
+
 export type Product = {
   /** Stable ID, also used as the page anchor on /products. */
   id: string;
   name: string;
   category: CategoryId;
-  /** Path under /public, only when an authentic pack photo exists. */
-  image?: { src: string; alt: string };
+  /** Front pack photo (path under /public). Only set when an authentic photo exists. */
+  image?: ProductPhoto;
+  /** Back pack photo. Only set when the genuine back image exists in inventories/. */
+  backImage?: ProductPhoto;
   /** Brochure description (English). */
   description?: string;
   /** Brochure tagline. */
@@ -60,9 +64,16 @@ export const categories: Category[] = [
   },
 ];
 
-const img = (file: string, name: string, format: "box" | "pouch") => ({
+/** Front pack photo: public/images/products/<file>.webp */
+const img = (file: string, name: string, format: "box" | "pouch"): ProductPhoto => ({
   src: `/images/products/${file}.webp`,
-  alt: `RASAM ${name} ${format === "box" ? "box" : "pouch"} pack`,
+  alt: `Front of the RASAM ${name} ${format}`,
+});
+
+/** Back pack photo: public/images/products/<file>-back.webp */
+const backImg = (file: string, name: string): ProductPhoto => ({
+  src: `/images/products/${file}-back.webp`,
+  alt: `Back of the RASAM ${name} pouch, showing the printed label`,
 });
 
 export const products: Product[] = [
@@ -72,6 +83,7 @@ export const products: Product[] = [
     name: "Turmeric Powder",
     category: "ground-spices",
     image: img("turmeric-powder", "Turmeric Powder", "pouch"),
+    backImage: backImg("turmeric-powder", "Turmeric Powder"),
     packFormat: "Pouch",
     tagline: "Golden Colour. Earthy Flavour. Everyday Tradition.",
     description:
@@ -93,6 +105,7 @@ export const products: Product[] = [
     name: "Coriander Powder",
     category: "ground-spices",
     image: img("coriander-powder", "Coriander Powder", "pouch"),
+    backImage: backImg("coriander-powder", "Coriander Powder"),
     packFormat: "Pouch",
     tagline: "Pure Spice. Authentic Flavour. Everyday Tradition.",
     description:
@@ -104,6 +117,7 @@ export const products: Product[] = [
     name: "Pili Mirch Powder",
     category: "ground-spices",
     image: img("pili-mirch-powder", "Pili Mirch Powder", "pouch"),
+    backImage: backImg("pili-mirch-powder", "Pili Mirch Powder"),
     packFormat: "Pouch",
     tagline: "Vibrant Colour. Balanced Spice. Rich Flavour.",
     description:
@@ -114,6 +128,7 @@ export const products: Product[] = [
     name: "Sonth Powder",
     category: "ground-spices",
     image: img("sonth-powder", "Sonth Powder", "pouch"),
+    backImage: backImg("sonth-powder", "Sonth Powder"),
     packFormat: "Pouch",
     tagline: "Warming Aroma. Distinctive Taste. Traditional Goodness.",
     description:
@@ -149,6 +164,7 @@ export const products: Product[] = [
     name: "Garam Masala Powder",
     category: "blended-masalas",
     image: img("garam-masala-powder", "Garam Masala Powder", "pouch"),
+    backImage: backImg("garam-masala-powder", "Garam Masala Powder"),
     packFormat: "Pouch",
     tagline: "Aromatic Spices. Rich Depth. Memorable Meals.",
     description:
@@ -272,6 +288,9 @@ export const products: Product[] = [
     name: "Pink Salt",
     category: "spices-seasonings",
     image: img("pink-salt", "Pink Salt", "pouch"),
+    backImage: backImg("pink-salt", "Pink Salt"),
+    // NOTE for the client: the genuine back label (inventories/2 (3).png) lists
+    // "INGREDIENTS : Yellow Chilli". This looks like an artwork error; confirm before launch.
     packFormat: "Pouch",
     pendingNote:
       "Product description awaiting confirmation (the brochure page repeats the Turmeric Powder text).",
@@ -289,3 +308,7 @@ export function getCategory(categoryId: CategoryId): Category {
 }
 
 export const featuredProducts = products.filter((product) => product.featured);
+
+export function getProduct(id: string): Product | undefined {
+  return products.find((product) => product.id === id);
+}
