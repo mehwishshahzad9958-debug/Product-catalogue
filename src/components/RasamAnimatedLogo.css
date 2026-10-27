@@ -30,7 +30,27 @@
   z-index: 3;
   clip-path: inset(0 0 55% 0);
   transform-origin: 50% 90%;
-  animation: rasam-lid-whistle 4.8s ease-in-out infinite;
+}
+
+/* The pot sits still until hovered; then the lid rattles and lifts and steam rises, like a cooker whistle. */
+.rasam-animation {
+  cursor: pointer;
+}
+
+.rasam-animation:hover .rasam-animation__lid {
+  animation: rasam-lid-whistle 2.4s ease-in-out infinite;
+}
+
+.rasam-animation:hover .steam {
+  animation: rasam-steam-rise 1.4s ease-out infinite;
+}
+
+.rasam-animation:hover .steam--two {
+  animation-delay: 0.25s;
+}
+
+.rasam-animation:hover .steam--three {
+  animation-delay: 0.5s;
 }
 
 /* Steam appears near the spout on the right side of the lid. */
@@ -54,7 +74,6 @@
   border-radius: 50%;
   opacity: 0;
   transform-origin: bottom center;
-  animation: rasam-steam-rise 2s ease-out infinite;
 }
 
 .steam--one {
@@ -137,8 +156,8 @@
 
 /* Respect visitors who prefer reduced motion. */
 @media (prefers-reduced-motion: reduce) {
-  .rasam-animation__lid,
-  .steam {
+  .rasam-animation:hover .rasam-animation__lid,
+  .rasam-animation:hover .steam {
     animation: none;
   }
 

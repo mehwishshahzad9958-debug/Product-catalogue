@@ -137,31 +137,16 @@
 }
 
 /*
- * Decorative linework (SVGs in /public/patterns). Drawn with mask-image so one SVG can take any
- * colour via `color`, sits behind content, ignores pointer events and is hidden from assistive
- * tech by always being used on aria-hidden elements.
+ * Spice-photo backdrop (see SpiceBackdrop.tsx). The photo layer is translucent over a warm ivory base;
+ * this overlay only adds a soft ivory fade at the top and bottom so the photo blends into the plain
+ * hero above and the green enquiry band below. Colours: Warm Ivory 250,245,233 / lighter ivory 252,249,240.
  */
-.ornament {
-  position: absolute;
-  z-index: 0;
-  pointer-events: none;
-  background-color: currentColor;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-position: center;
-  mask-position: center;
-}
-
-.ornament-mandala {
-  -webkit-mask-image: url("/patterns/mandala-corner.svg");
-  mask-image: url("/patterns/mandala-corner.svg");
-  aspect-ratio: 1;
-}
-
-.ornament-sprig {
-  -webkit-mask-image: url("/patterns/coriander-sprig.svg");
-  mask-image: url("/patterns/coriander-sprig.svg");
-  aspect-ratio: 1 / 2;
+.spice-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(251, 247, 236, 0.85) 0%,
+    rgba(252, 249, 240, 0) 7%,
+    rgba(252, 249, 240, 0) 93%,
+    rgba(251, 247, 236, 0.5) 100%
+  );
 }

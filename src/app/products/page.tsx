@@ -16,9 +16,6 @@ export default function ProductsPage() {
   return (
     <>
       <section className="relative overflow-hidden border-b border-turmeric/40">
-        {/* Existing mandala, kept behind the text block in the lower-left corner; clipped by the section */}
-        <span aria-hidden="true" className="ornament ornament-mandala bottom-0 left-0 w-[240px] -scale-100 text-turmeric opacity-[0.2] lg:w-[360px]" />
-
         {/* Slider on top, same width as the framed hero box on the home page. Slides: src/data/productHeroSlides.ts */}
         <div className="relative z-10 mx-auto max-w-[1480px] px-6 pt-8 lg:px-10 lg:pt-10">
           <ProductHeroSlider slides={heroSlides} aspectClassName="aspect-[4/3] sm:aspect-[16/10] lg:aspect-[2/1]" />
@@ -73,9 +70,6 @@ export default function ProductsPage() {
             aria-labelledby={`${category.id}-heading`}
             className={`relative overflow-hidden ${index % 2 === 1 ? "bg-ivory-deep/40" : ""}`}
           >
-            {index % 2 === 1 && (
-              <span aria-hidden="true" className="ornament ornament-sprig -right-3 top-6 hidden w-[90px] text-olive opacity-[0.14] xl:block" />
-            )}
             <div className="relative z-10 mx-auto max-w-7xl px-6 py-14 lg:px-10 lg:py-20">
               <h2 id={`${category.id}-heading`} className="font-serif text-4xl text-earth">
                 {category.name}

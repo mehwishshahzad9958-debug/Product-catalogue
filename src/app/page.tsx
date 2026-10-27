@@ -3,13 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import OrnamentDivider from "@/components/OrnamentDivider";
 import ProductCarousel from "@/components/ProductCarousel";
+import SpiceBackdrop from "@/components/SpiceBackdrop";
 import RasamAnimatedLogo from "@/components/RasamAnimatedLogo";
 import { company } from "@/data/company";
-import {
-  categories,
-  getProductsByCategory,
-  products,
-} from "@/data/products";
+import { categories, getProductsByCategory } from "@/data/products";
 
 const primaryButton =
   "inline-flex min-h-12 items-center justify-center rounded-full bg-spice px-7 text-[15px] font-semibold text-white transition-colors hover:bg-spice-dark";
@@ -22,12 +19,7 @@ export default function Home() {
     <>
       {/* Hero: framed card, as in the approved reference */}
       <section className="px-6 pb-12 pt-8 lg:px-10 lg:pb-16 lg:pt-10">
-        <div className="relative mx-auto max-w-[1480px] overflow-hidden rounded-2xl border border-green/70">
-          {/* Faint botanical sketches in the corners, behind the content */}
-          <span aria-hidden="true" className="ornament ornament-sprig -left-2 top-4 w-[70px] -rotate-12 text-olive opacity-[0.14] lg:w-[110px]" />
-          <span aria-hidden="true" className="ornament ornament-sprig -bottom-4 left-6 hidden w-[80px] rotate-6 text-olive opacity-[0.12] lg:block lg:w-[100px]" />
-          <span aria-hidden="true" className="ornament ornament-sprig -right-2 top-2 hidden w-[90px] rotate-12 text-olive opacity-[0.12] lg:block" />
-
+        <div className="relative mx-auto max-w-[1480px] overflow-hidden rounded-2xl border border-green/70 bg-ivory">
           <div className="relative z-10 grid items-center gap-8 px-6 py-10 sm:px-10 lg:grid-cols-[1fr_1.05fr] lg:gap-6 lg:px-12 lg:py-14">
             {/* Hero content, centred over the left column */}
             <div className="flex flex-col items-center text-center">
@@ -56,7 +48,7 @@ export default function Home() {
 
             {/* Hero image */}
             <div className="relative mx-auto w-full max-w-[600px]">
-              <div className="relative aspect-[417/381] w-full">
+              <div className="relative mt-[12%] aspect-[417/381] w-full">
                 <Image
                   src="/images/home-hero.webp"
                   alt="RASAM spices product collection"
@@ -71,8 +63,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Spice-photo backdrop behind everything from "Our range" to the end of About; the hero stays plain and the green enquiry band/footer stay solid */}
+      <div className="relative isolate overflow-x-clip">
+        <SpiceBackdrop />
       {/* Our range */}
-      <section id="our-range" className="border-y border-turmeric/40 bg-ivory py-16 lg:py-24">
+      <section id="our-range" className="border-y border-turmeric/40 py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
           <div className="max-w-2xl">
             <h2 className="font-serif text-4xl text-earth sm:text-5xl">
@@ -97,8 +92,6 @@ export default function Home() {
       </section>
       {/* About */}
       <section className="relative overflow-hidden">
-        <span aria-hidden="true" className="ornament ornament-sprig -right-4 bottom-0 hidden w-[120px] text-olive opacity-[0.16] md:block lg:right-6 lg:w-[150px]" />
-        <span aria-hidden="true" className="ornament ornament-mandala bottom-0 left-0 w-[180px] text-turmeric opacity-[0.16] lg:w-[240px]" style={{ transform: "scale(-1,-1)" }} />
         <div className="relative z-10 mx-auto grid max-w-7xl gap-8 px-6 py-16 lg:grid-cols-[1fr_1.2fr] lg:gap-16 lg:px-10 lg:py-24">
           <h2 className="font-serif text-4xl leading-tight text-earth sm:text-5xl">
             Spices are the heart of Indian cuisine.
@@ -121,10 +114,10 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </div>
 
       {/* Business enquiries */}
       <section className="relative overflow-hidden border-t-2 border-turmeric bg-forest text-ivory [&_:focus-visible]:outline-turmeric">
-        <span aria-hidden="true" className="ornament ornament-mandala right-0 top-0 w-[260px] text-turmeric opacity-[0.14] lg:w-[340px]" />
         <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-6 py-16 lg:grid-cols-[1.3fr_1fr] lg:px-10 lg:py-20">
           <div>
             <h2 className="font-serif text-4xl sm:text-5xl">
