@@ -1,8 +1,9 @@
 
-import Image from "next/image";
 import Link from "next/link";
+import HeroVisual from "@/components/HeroVisual";
 import OrnamentDivider from "@/components/OrnamentDivider";
 import ProductCarousel from "@/components/ProductCarousel";
+import RotatingDishSection from "@/components/RotatingDishSection";
 import SpiceBackdrop from "@/components/SpiceBackdrop";
 import RasamAnimatedLogo from "@/components/RasamAnimatedLogo";
 import { company } from "@/data/company";
@@ -19,24 +20,28 @@ export default function Home() {
     <>
       {/* Hero: framed card, as in the approved reference */}
       <section className="px-6 pb-12 pt-8 lg:px-10 lg:pb-16 lg:pt-10">
-        <div className="relative mx-auto max-w-[1480px] overflow-hidden rounded-2xl border border-green/70 bg-ivory">
+        <div data-hero-card className="relative mx-auto max-w-[1480px] overflow-hidden rounded-2xl border border-green/70 bg-ivory">
           <div className="relative z-10 grid items-center gap-8 px-6 py-10 sm:px-10 lg:grid-cols-[1fr_1.05fr] lg:gap-6 lg:px-12 lg:py-14">
             {/* Hero content, centred over the left column */}
             <div className="flex flex-col items-center text-center">
               {/* Large animated logo (same component as the header; lid animation stops for reduced-motion) */}
-              <div className="w-[200px] sm:w-[250px]">
+              <div className="hero-in w-[200px] sm:w-[250px]">
                 <RasamAnimatedLogo />
               </div>
 
-              <p className="rasam-tagline mt-4">{company.brandLine}</p>
+              <p className="rasam-tagline hero-in mt-4" style={{ "--hero-delay": "0.3s" } as React.CSSProperties}>
+                {company.brandLine}
+              </p>
 
-              <OrnamentDivider className="mt-3" />
+              <div className="hero-in" style={{ "--hero-delay": "0.4s" } as React.CSSProperties}>
+                <OrnamentDivider className="mt-3" />
+              </div>
 
-              <h1 className="mt-4 font-serif text-2xl text-green sm:text-3xl">
+              <h1 className="hero-in mt-4 font-serif text-2xl text-green sm:text-3xl" style={{ "--hero-delay": "0.5s" } as React.CSSProperties}>
                 Rich aroma. Authentic flavours.
               </h1>
 
-              <div className="mt-7 flex flex-wrap justify-center gap-3">
+              <div className="hero-in mt-7 flex flex-wrap justify-center gap-3" style={{ "--hero-delay": "0.75s" } as React.CSSProperties}>
                 <Link href="/products" className={primaryButton}>
                   Explore products
                 </Link>
@@ -46,19 +51,8 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Hero image */}
-            <div className="relative mx-auto w-full max-w-[600px]">
-              <div className="relative mt-[12%] aspect-[417/381] w-full">
-                <Image
-                  src="/images/home-hero.webp"
-                  alt="RASAM spices product collection"
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-contain"
-                />
-              </div>
-            </div>
+            {/* Animated product collection (client component: entrance, float, light parallax) */}
+            <HeroVisual />
           </div>
         </div>
       </section>
@@ -66,6 +60,10 @@ export default function Home() {
       {/* Spice-photo backdrop behind everything from "Our range" to the end of About; the hero stays plain and the green enquiry band/footer stay solid */}
       <div className="relative isolate overflow-x-clip">
         <SpiceBackdrop />
+
+      {/* Rotating dish platter: between the hero and "Our range" */}
+      <RotatingDishSection />
+
       {/* Our range */}
       <section id="our-range" className="border-y border-turmeric/40 py-16 lg:py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">

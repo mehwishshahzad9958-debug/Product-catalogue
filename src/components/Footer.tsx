@@ -4,8 +4,7 @@ import { company, navLinks } from "@/data/company";
 
 export default function Footer() {
   return (
-    <footer className="border-t-2 border-turmeric bg-forest px-6 pb-8 pt-14 text-ivory lg:px-10 [&_:focus-visible]:outline-turmeric">
-      <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.4fr_1fr_1.4fr]">
+<footer className="spice-footer-bg border-t-2 border-turmeric bg-forest px-6 pb-8 pt-14 text-ivory lg:px-10 [&_:focus-visible]:outline-turmeric">      <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.4fr_1fr_1.4fr]">
         <div>
           <BrandMark tone="light" />
           <p className="mt-4 max-w-sm text-sm leading-7 text-ivory/85">

@@ -150,3 +150,223 @@
     rgba(251, 247, 236, 0.5) 100%
   );
 }
+
+/*
+ * Rotating dish platter (see RotatingDishSection.tsx). Clockwise, constant speed, one full turn every
+ * 25s like the reference. The reveal (fade + scale-in on first view) and the spin sit on separate
+ * elements so their transforms never fight. Rotation pauses off screen.
+ */
+.dish-reveal {
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.dish-reveal[data-revealed="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* If scripting is off the reveal can never fire, so show the platter straight away. */
+@media (scripting: none) {
+  .dish-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.dish-spin {
+  animation: dish-spin 25s linear infinite;
+  will-change: transform;
+}
+
+.dish-reveal[data-inview="false"] .dish-spin {
+  animation-play-state: paused;
+}
+
+@keyframes dish-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*
+ * Wooden platter: warm walnut/teak built from layered gradients plus an inline SVG noise stretched
+ * into long grain streaks (no image file). The rim is a deeper tone than the plate surface.
+ */
+.dish-platter {
+  --wood-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.008 0.22' numOctaves='4' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.22 0 0 0 0 0.11 0 0 0 0 0.04 0 0 0 1.5 -0.55'/%3E%3C/filter%3E%3Crect width='420' height='420' filter='url(%23g)'/%3E%3C/svg%3E");
+  background:
+    var(--wood-grain) 0 0 / 420px 420px,
+    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0) 60%, rgba(40, 20, 8, 0.4) 100%),
+    conic-gradient(from 20deg, #94602d, #a76e36, #8a5828, #b07a40, #94602d);
+  box-shadow:
+    0 34px 50px -22px rgba(61, 44, 31, 0.55),
+    0 12px 18px -8px rgba(61, 44, 31, 0.35),
+    inset 0 2px 3px rgba(255, 226, 170, 0.45),
+    inset 0 0 0 2px rgba(60, 32, 12, 0.4);
+}
+
+.dish-platter-inner {
+  background:
+    var(--wood-grain) 60px 40px / 420px 420px,
+    radial-gradient(circle at 50% 40%, #d9a96b 0%, #c8955a 60%, #b27f45 100%);
+  box-shadow:
+    inset 0 6px 16px rgba(40, 20, 8, 0.4),
+    0 0 0 2px rgba(60, 32, 12, 0.35);
+}
+
+/* Dotted dividers: a faint shadow keeps the white dots visible over light food. */
+.dish-dividers {
+  filter: drop-shadow(0 0 1px rgba(61, 44, 31, 0.55));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dish-spin {
+    animation: none;
+  }
+
+  .dish-reveal {
+    transition: none;
+  }
+}
+/* Star anise background for the RASAM footer */
+.spice-footer-bg {
+  background-image:
+    linear-gradient(
+      rgba(42, 78, 43, 0.72),
+      rgba(42, 78, 43, 0.82)
+    ),
+    url("/images/star-anise-background.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/*
+ * Home hero motion (HeroVisual.tsx and the .hero-in classes in page.tsx). Everything animates
+ * transform and opacity only. Sequence: logo, tagline, divider, heading, buttons rise in one after
+ * another (the delay comes from --hero-delay); the product collection is pushed in toward the
+ * viewer with a soft ease, then floats gently. Content is visible by default, so nothing depends
+ * on JavaScript to appear.
+ */
+.hero-in {
+  animation: hero-in 0.8s cubic-bezier(0.22, 0.7, 0.2, 1) both;
+  animation-delay: var(--hero-delay, 0s);
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Pointer and scroll parallax: each layer moves by its own amount (--par, --drift). */
+.hero-par {
+  transform: translate3d(
+    calc(var(--hero-px, 0) * var(--par, 0px)),
+    calc(var(--hero-py, 0) * var(--par, 0px) + var(--hero-sy, 0) * var(--drift, 0px)),
+    0
+  );
+  transition: transform 0.4s ease-out;
+  will-change: transform;
+}
+
+.hero-product-in {
+  animation: hero-dolly 1.5s cubic-bezier(0.16, 0.8, 0.2, 1) 0.15s both;
+}
+
+@keyframes hero-dolly {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 44px, 0) scale(0.82);
+  }
+  55% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-float {
+  animation: hero-float 7s ease-in-out 1.7s infinite;
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -7px, 0) rotate(0.4deg);
+  }
+}
+
+.hero-glow-in {
+  background: radial-gradient(circle at 50% 52%, rgba(212, 166, 90, 0.38) 0%, rgba(212, 166, 90, 0.16) 42%, rgba(212, 166, 90, 0) 68%);
+  animation: hero-glow 1.8s ease-out 0.1s both;
+}
+
+@keyframes hero-glow {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-shadow {
+  background: radial-gradient(ellipse at 50% 50%, rgba(61, 44, 31, 0.32) 0%, rgba(61, 44, 31, 0) 70%);
+  animation: hero-shadow-in 1.4s ease-out 0.3s both, hero-shadow-pulse 7s ease-in-out 1.7s infinite;
+}
+
+@keyframes hero-shadow-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The shadow tightens slightly as the products float up, and widens as they settle. */
+@keyframes hero-shadow-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.94);
+    opacity: 0.8;
+  }
+}
+
+/* Reduced motion: show the finished hero, perfectly still. */
+@media (prefers-reduced-motion: reduce) {
+  .hero-in,
+  .hero-product-in,
+  .hero-float,
+  .hero-glow-in,
+  .hero-shadow {
+    animation: none;
+  }
+
+  .hero-par {
+    transform: none;
+    transition: none;
+  }
+}
