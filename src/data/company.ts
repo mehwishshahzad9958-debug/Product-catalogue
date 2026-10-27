@@ -8,9 +8,9 @@
  * Keep every company fact in this one file so it can be updated in one place.
  */
 export const company = {
-  displayName: "RASAM Spices",
+  displayName: "RASAM",
   /** Brand line printed on the brochure cover. */
-  brandLine: "Swad aisa Rasmo jaisa",
+  brandLine: "Swad Aisa Rasamo Jaisa",
   /** Launch date stated in the brochure's About Us page. */
   launchDate: "11 October 2025",
   phone: {
@@ -30,7 +30,7 @@ export const company = {
 
 /** Pre-filled email link for business enquiries. */
 export const enquiryMailto = `mailto:${company.email}?subject=${encodeURIComponent(
-  "Business enquiry – RASAM Spices",
+  "Business enquiry – RASAM",
 )}`;
 
 export const navLinks = [

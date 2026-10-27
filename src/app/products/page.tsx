@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
-import { categories, getProductsByCategory, products } from "@/data/products";
+import ProductCarousel from "@/components/ProductCarousel";
+import ProductHeroSlider from "@/components/ProductHeroSlider";
+import { heroSlides } from "@/data/productHeroSlides";
+import { categories, featuredProducts, getProductsByCategory, products } from "@/data/products";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -12,8 +15,16 @@ export const metadata: Metadata = {
 export default function ProductsPage() {
   return (
     <>
-      <section className="border-b border-earth/10">
-        <div className="mx-auto max-w-7xl px-6 pb-10 pt-14 lg:px-10 lg:pt-20">
+      <section className="relative overflow-hidden border-b border-turmeric/40">
+        {/* Existing mandala, kept behind the text block in the lower-left corner; clipped by the section */}
+        <span aria-hidden="true" className="ornament ornament-mandala bottom-0 left-0 w-[240px] -scale-100 text-turmeric opacity-[0.2] lg:w-[360px]" />
+
+        {/* Slider on top, same width as the framed hero box on the home page. Slides: src/data/productHeroSlides.ts */}
+        <div className="relative z-10 mx-auto max-w-[1480px] px-6 pt-8 lg:px-10 lg:pt-10">
+          <ProductHeroSlider slides={heroSlides} aspectClassName="aspect-[4/3] sm:aspect-[16/10] lg:aspect-[2/1]" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-6 pb-12 pt-10 lg:px-10 lg:pb-16 lg:pt-14">
           <h1 className="font-serif text-5xl text-earth sm:text-6xl">Our products</h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-earth-muted">
             {products.length} spices and masalas across three categories. This is a
@@ -30,7 +41,7 @@ export default function ProductsPage() {
                 <li key={category.id}>
                   <a
                     href={`#${category.id}`}
-                    className="inline-flex min-h-11 items-center rounded-full border border-earth/20 px-5 text-sm font-medium text-earth transition-colors hover:border-spice hover:text-spice"
+                    className="inline-flex min-h-11 items-center rounded-full border border-green/40 px-5 text-sm font-medium text-green transition-colors hover:border-green hover:bg-green hover:text-ivory"
                   >
                     {category.name} ({getProductsByCategory(category.id).length})
                   </a>
@@ -41,6 +52,18 @@ export default function ProductsPage() {
         </div>
       </section>
 
+      {/* Featured slider: real products flagged `featured` in src/data/products.ts */}
+      {featuredProducts.length > 0 && (
+        <section id="featured" aria-label="Featured products" className="border-b border-turmeric/40 bg-ivory">
+          <div className="mx-auto max-w-7xl px-6 py-12 lg:px-10 lg:py-16">
+            <ProductCarousel
+              category={{ id: "featured", name: "Featured products", summary: "A few favourites from the range." }}
+              products={featuredProducts}
+            />
+          </div>
+        </section>
+      )}
+
       {categories.map((category, index) => {
         const items = getProductsByCategory(category.id);
         return (
@@ -48,9 +71,12 @@ export default function ProductsPage() {
             key={category.id}
             id={category.id}
             aria-labelledby={`${category.id}-heading`}
-            className={index % 2 === 1 ? "bg-ivory-deep/60" : undefined}
+            className={`relative overflow-hidden ${index % 2 === 1 ? "bg-ivory-deep/40" : ""}`}
           >
-            <div className="mx-auto max-w-7xl px-6 py-14 lg:px-10 lg:py-20">
+            {index % 2 === 1 && (
+              <span aria-hidden="true" className="ornament ornament-sprig -right-3 top-6 hidden w-[90px] text-olive opacity-[0.14] xl:block" />
+            )}
+            <div className="relative z-10 mx-auto max-w-7xl px-6 py-14 lg:px-10 lg:py-20">
               <h2 id={`${category.id}-heading`} className="font-serif text-4xl text-earth">
                 {category.name}
               </h2>

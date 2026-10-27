@@ -39,8 +39,8 @@ export default function HeaderNav({ links }: { links: readonly NavLink[] }) {
 
   const linkClass = (href: string) =>
     isActive(pathname, href)
-      ? "text-spice"
-      : "text-earth-muted hover:text-spice";
+      ? "text-green underline decoration-turmeric decoration-2 underline-offset-8"
+      : "text-earth hover:text-green";
 
   return (
     <>
@@ -51,7 +51,7 @@ export default function HeaderNav({ links }: { links: readonly NavLink[] }) {
             <Link
               href={link.href}
               aria-current={isActive(pathname, link.href) ? "page" : undefined}
-              className={`text-[15px] font-medium transition-colors ${linkClass(link.href)}`}
+              className={`text-base font-medium transition-colors ${linkClass(link.href)}`}
             >
               {link.label}
             </Link>

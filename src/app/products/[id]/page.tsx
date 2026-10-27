@@ -97,13 +97,13 @@ export default async function ProductPage(props: PageProps<"/products/[id]">) {
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href={enquiryMailto}
-                className="inline-flex min-h-12 items-center rounded-full bg-spice px-7 text-[15px] font-semibold text-ivory transition-colors hover:bg-spice-dark"
+                className="inline-flex min-h-12 items-center rounded-full bg-spice px-7 text-[15px] font-semibold text-white transition-colors hover:bg-spice-dark"
               >
                 Email an enquiry
               </a>
               <a
                 href={company.phone.href}
-                className="inline-flex min-h-12 items-center rounded-full border border-earth/25 px-7 text-[15px] font-semibold text-earth transition-colors hover:border-spice hover:text-spice"
+                className="inline-flex min-h-12 items-center rounded-full border-2 border-green px-7 text-[15px] font-semibold text-green transition-colors hover:bg-green hover:text-ivory"
               >
                 Call {company.phone.display}
               </a>

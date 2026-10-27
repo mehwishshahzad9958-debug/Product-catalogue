@@ -4,11 +4,11 @@ import { company, navLinks } from "@/data/company";
 
 export default function Footer() {
   return (
-    <footer className="bg-earth px-6 pb-8 pt-14 text-ivory lg:px-10 [&_:focus-visible]:outline-turmeric">
+    <footer className="border-t-2 border-turmeric bg-forest px-6 pb-8 pt-14 text-ivory lg:px-10 [&_:focus-visible]:outline-turmeric">
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.4fr_1fr_1.4fr]">
         <div>
           <BrandMark tone="light" />
-          <p className="mt-4 max-w-sm text-sm leading-7 text-ivory/75">
+          <p className="mt-4 max-w-sm text-sm leading-7 text-ivory/85">
             Authentic Indian spices and masalas for every home. For retail,
             wholesale and distributorship enquiries, get in touch.
           </p>
@@ -16,7 +16,7 @@ export default function Footer() {
 
         <div>
           <h2 className="font-serif text-lg">Explore</h2>
-          <ul className="mt-4 space-y-3 text-sm text-ivory/75">
+          <ul className="mt-4 space-y-3 text-sm text-ivory/85">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className="hover:text-ivory hover:underline">
@@ -29,7 +29,7 @@ export default function Footer() {
 
         <div>
           <h2 className="font-serif text-lg">Contact</h2>
-          <address className="mt-4 space-y-3 text-sm not-italic leading-6 text-ivory/75">
+          <address className="mt-4 space-y-3 text-sm not-italic leading-6 text-ivory/85">
             <p>
               {company.address.lines.map((line) => (
                 <span key={line} className="block">
@@ -51,7 +51,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-12 flex max-w-7xl flex-col gap-2 border-t border-ivory/15 pt-6 text-xs text-ivory/60 sm:flex-row sm:justify-between">
+      <div className="mx-auto mt-12 flex max-w-7xl flex-col gap-2 border-t border-ivory/20 pt-6 text-xs text-ivory/75 sm:flex-row sm:justify-between">
         <p>
           © {new Date().getFullYear()} {company.displayName}
         </p>

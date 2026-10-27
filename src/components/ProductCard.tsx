@@ -4,11 +4,16 @@ import { getCategory, type Product } from "@/data/products";
 
 type ProductCardProps = {
   product: Product;
-  /** "compact" for the homepage, "detailed" for the catalogue. */
-  variant?: "compact" | "detailed";
+  /** "compact" for standard cards, "detailed" for the catalogue, "carousel" for horizontal carousels. */
+  variant?: "compact" | "detailed" | "carousel";
+  className?: string;
 };
 
-export default function ProductCard({ product, variant = "compact" }: ProductCardProps) {
+export default function ProductCard({
+  product,
+  variant = "compact",
+  className = "",
+}: ProductCardProps) {
   const detailed = variant === "detailed";
   const sizes = product.packSizes?.join(", ");
   const format = product.packFormat?.toLowerCase();
@@ -16,12 +21,67 @@ export default function ProductCard({ product, variant = "compact" }: ProductCar
   const packLine =
     sizes && format ? `${sizes} ${format}` : sizes ?? product.packFormat ?? "";
 
+  if (variant === "carousel") {
+    return (
+      <article
+        className={`group flex h-full w-full flex-col rounded-xl border border-turmeric/40 bg-ivory-deep shadow-xs transition-all duration-200 hover:-translate-y-1 hover:border-turmeric hover:shadow-md ${className}`}
+      >
+        <Link
+          href={`/products/${product.id}`}
+          className="flex h-full flex-col focus-visible:rounded-xl focus-visible:outline-spice"
+          aria-label={`View details for ${product.name}`}
+        >
+          <div className="flex w-full items-center justify-center overflow-hidden rounded-t-xl bg-ivory/70 p-5 transition-colors group-hover:bg-ivory/90">
+            <ProductImage
+              product={product}
+              sizes="(min-width: 1024px) 280px, (min-width: 640px) 260px, 230px"
+            />
+          </div>
+
+          <div className="flex flex-1 flex-col p-5">
+            {packLine && (
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-earth-muted/80">
+                {packLine}
+              </span>
+            )}
+
+            <h4 className="mt-1 font-serif text-xl font-medium text-earth transition-colors group-hover:text-spice line-clamp-1">
+              {product.name}
+            </h4>
+
+            {product.tagline ? (
+              <p className="mt-1.5 text-xs font-medium text-spice line-clamp-2 sm:text-sm">
+                {product.tagline}
+              </p>
+            ) : product.description ? (
+              <p className="mt-1.5 text-xs text-earth-muted line-clamp-2 sm:text-sm">
+                {product.description}
+              </p>
+            ) : null}
+
+            <div className="mt-auto flex items-center justify-between border-t border-turmeric/30 pt-4 text-xs font-semibold text-spice">
+              <span className="underline decoration-spice/30 underline-offset-4 group-hover:decoration-spice">
+                {product.backImage ? "View packaging" : "View product"}
+              </span>
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-200 group-hover:translate-x-1"
+              >
+                →
+              </span>
+            </div>
+          </div>
+        </Link>
+      </article>
+    );
+  }
+
   return (
     <article
       id={detailed ? product.id : undefined}
-      className="flex h-full flex-col rounded-lg border border-earth/10 bg-ivory"
+      className={`flex h-full flex-col rounded-lg border border-turmeric/40 bg-ivory-deep ${className}`}
     >
-      <div className="rounded-t-lg bg-ivory-deep px-6 pt-6">
+      <div className="rounded-t-lg bg-ivory/70 p-6">
         <ProductImage
           product={product}
           sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 90vw"
@@ -51,7 +111,7 @@ export default function ProductCard({ product, variant = "compact" }: ProductCar
         )}
 
         {detailed && product.pendingNote && (
-          <p className="mt-4 rounded-md bg-ivory-deep px-3 py-2 text-sm leading-6 text-earth-muted">
+          <p className="mt-4 rounded-md bg-ivory px-3 py-2 text-sm leading-6 text-earth-muted">
             <span className="font-semibold text-earth">To be confirmed: </span>
             {product.pendingNote}
           </p>
