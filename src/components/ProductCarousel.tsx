@@ -7,7 +7,7 @@ import type { Product } from "@/data/products";
 
 type ProductCarouselProps = {
   /** A catalogue category, or any group (e.g. "featured") that has a matching #id on the page. */
-  category: { id: string; name: string; summary: string };
+  category: { id: string; name: string; summary?: string };
   products: Product[];
 };
 
@@ -68,9 +68,9 @@ export default function ProductCarousel({ category, products }: ProductCarouselP
               {category.name}
             </Link>
           </h3>
-          <p className="mt-1.5 text-sm text-earth-muted sm:text-base">
-            {category.summary}
-          </p>
+          {category.summary && (
+            <p className="mt-1.5 text-sm text-earth-muted sm:text-base">{category.summary}</p>
+          )}
         </div>
 
         <div className="flex items-center justify-between gap-4 shrink-0 sm:justify-end">

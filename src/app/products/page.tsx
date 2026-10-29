@@ -17,7 +17,7 @@ export default function ProductsPage() {
     <>
       <section className="relative overflow-hidden border-b border-turmeric/40">
         {/* Slider on top, same width as the framed hero box on the home page. Slides: src/data/productHeroSlides.ts */}
-        <div className="relative z-10 mx-auto max-w-[1480px] px-6 pt-8 lg:px-10 lg:pt-10">
+        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-8 lg:px-10 lg:pt-10">
           <ProductHeroSlider slides={heroSlides} aspectClassName="aspect-[4/3] sm:aspect-[16/10] lg:aspect-[2/1]" />
         </div>
 
@@ -25,10 +25,10 @@ export default function ProductsPage() {
           <p className="eyebrow">The catalogue</p>
           <h1 className="display-heading mt-4 text-5xl text-earth sm:text-7xl">Our products</h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-earth-muted">
-            {products.length} spices and masalas across three categories. This is a
-            product catalogue: for orders, stock and trade terms, please{" "}
+            {products.length} spices and masalas in three categories. For orders and trade
+            terms, please{" "}
             <Link href="/contact" className="font-semibold text-spice underline underline-offset-4">
-              send us an enquiry
+              send an enquiry
             </Link>
             .
           </p>
@@ -55,7 +55,7 @@ export default function ProductsPage() {
         <section id="featured" aria-label="Featured products" className="border-b border-turmeric/40 bg-parchment">
           <div className="mx-auto max-w-7xl px-6 py-12 lg:px-10 lg:py-16">
             <ProductCarousel
-              category={{ id: "featured", name: "Featured products", summary: "A few favourites from the range." }}
+              category={{ id: "featured", name: "Featured products" }}
               products={featuredProducts}
             />
           </div>

@@ -22,8 +22,7 @@ export default function ContactPage() {
           <p className="eyebrow">Get in touch</p>
           <h1 className="display-heading mt-4 text-5xl text-earth sm:text-7xl">Contact us</h1>
           <p className="mt-5 max-w-xl text-lg leading-8 text-earth-muted">
-            For business enquiries and distributorships, call or email the RASAM Spices
-            team. We welcome retailers, wholesalers, distributors and business partners.
+            For business enquiries and distributorships, call or email the RASAM Spices team.
           </p>
 
           <div className="mt-9 flex flex-wrap gap-3">
@@ -40,9 +39,6 @@ export default function ContactPage() {
               Call {company.phone.display}
             </a>
           </div>
-          <p className="mt-4 text-sm text-earth-muted">
-            The email button opens your own email app with the subject filled in.
-          </p>
 
           <div className="mt-12 max-w-xl rounded-card bg-ivory-deep p-6 sm:p-8">
             <h2 className="font-serif text-2xl text-earth">Helpful to include</h2>

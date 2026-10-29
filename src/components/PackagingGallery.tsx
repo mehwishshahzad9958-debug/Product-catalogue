@@ -12,7 +12,7 @@ export default function PackagingGallery({ product }: { product: Product }) {
   return (
     <div className="flex flex-col gap-6">
       {sides.map((side) => (
-        <figure key={side} className="rounded-lg bg-ivory-deep p-4 sm:p-6">
+        <figure key={side} className="rounded-card border border-turmeric/35 bg-[linear-gradient(180deg,#f4eada_0%,#eadcc3_100%)] p-4 shadow-card sm:p-6">
           <ProductImage
             product={product}
             side={side}
@@ -20,7 +20,7 @@ export default function PackagingGallery({ product }: { product: Product }) {
           />
           {/* Only label real photos; the placeholder carries its own label. */}
           {(side === "back" || product.image) && (
-            <figcaption className="mt-4 text-center text-sm font-semibold text-earth">
+            <figcaption className="mt-4 text-center text-xs font-semibold uppercase tracking-[0.18em] text-gold-text">
               {side === "front" ? "Front packaging" : "Back packaging"}
             </figcaption>
           )}

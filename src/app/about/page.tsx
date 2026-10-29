@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { company } from "@/data/company";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -6,50 +9,39 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="text-earth">
-      <section className="mx-auto max-w-7xl px-6 py-20 lg:px-12 lg:py-28">
-        <p className="eyebrow">
-          Our Story
-        </p>
+    <section className="text-earth">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 lg:px-10 lg:py-24">
+        <div className="image-frame relative mx-auto aspect-[4/5] w-full max-w-md lg:max-w-none">
+          <Image
+            src="/images/spice-background.jpg"
+            alt="Whole spices: turmeric, star anise and chillies"
+            fill
+            sizes="(min-width: 1024px) 40vw, 90vw"
+            quality={90}
+            className="object-cover object-[50%_35%]"
+          />
+        </div>
 
-        <h1 className="max-w-3xl text-5xl font-semibold leading-tight md:text-7xl">
-          Every spice carries a story.
-        </h1>
-
-        <p className="mt-8 max-w-2xl text-lg leading-8 text-earth-muted">
-          This space will introduce the company, its values, and its journey.
-          The final story will be added after the company shares and confirms
-          its details.
-        </p>
-
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
-          <div className="rounded-card bg-ivory-deep p-8 md:p-10">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-spice">
-              Our Purpose
-            </p>
-            <h2 className="mt-4 text-2xl font-semibold">
-              Made for meaningful meals.
-            </h2>
-            <p className="mt-4 leading-7 text-earth-muted">
-              The company&apos;s mission and purpose will be presented here
-              once confirmed.
-            </p>
-          </div>
-
-          <div className="rounded-card border border-turmeric/40 bg-ivory p-8 md:p-10">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-spice">
-              Our Values
-            </p>
-            <h2 className="mt-4 text-2xl font-semibold">
-              A story worth sharing.
-            </h2>
-            <p className="mt-4 leading-7 text-earth-muted">
-              Confirmed company values, sourcing details, and product
-              standards will be added here when provided.
-            </p>
+        <div>
+          <p className="eyebrow">Our story</p>
+          <h1 className="display-heading mt-4 text-5xl leading-[1.05] sm:text-6xl lg:text-7xl">
+            Spices are the heart of Indian cuisine.
+          </h1>
+          <p className="mt-7 max-w-xl text-lg leading-8 text-earth-muted">
+            Launched on {company.launchDate}, RASAM Spices was founded with a simple vision: to
+            bring the authentic taste of India to every home through spices that make everyday
+            cooking more delicious and memorable.
+          </p>
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Link href="/products" className="btn btn-primary">
+              Explore products
+            </Link>
+            <Link href="/contact" className="btn btn-ghost-dark">
+              Business enquiries
+            </Link>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 }
