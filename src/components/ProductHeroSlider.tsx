@@ -4,11 +4,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { HeroSlide } from "@/data/productHeroSlides";
 
-const INTERVAL_MS = 4000;
+const INTERVAL_MS = 4500;
 
 /**
  * Auto-advancing image slider with a fade transition and pagination dots.
- * - Advances every 4 seconds; pauses while the pointer is over it or focus is inside it.
+ * - Advances every 4.5 seconds; pauses while the pointer is over it or focus is inside it.
  * - With `prefers-reduced-motion` it does not auto-advance or fade; the dots still work.
  * - Slides are stacked and cross-fade, so the frame never changes size.
  */
@@ -40,7 +40,7 @@ export default function ProductHeroSlider({
     return () => query.removeEventListener("change", update);
   }, []);
 
-  // One timer per slide; picking a dot restarts the 4 seconds. Cleared on unmount.
+  // One timer per slide; picking a dot restarts the 4.5 seconds. Cleared on unmount.
   useEffect(() => {
     if (!autoplay) return;
     const timer = window.setTimeout(() => setIndex((current) => (current + 1) % count), INTERVAL_MS);
@@ -87,7 +87,8 @@ export default function ProductHeroSlider({
                     fill
                     sizes="(min-width: 1024px) 40vw, (min-width: 640px) 70vw, 100vw"
                     quality={90}
-                    loading={i === 0 ? "eager" : "lazy"}
+                    // The current and the NEXT slide load eagerly, so the cross-fade never shows a blank frame.
+                    loading={i === index || i === (index + 1) % count ? "eager" : "lazy"}
                     className={fit === "cover" ? "object-cover" : "object-contain"}
                     style={fit === "cover" ? { objectPosition: slide.objectPosition } : undefined}
                   />
