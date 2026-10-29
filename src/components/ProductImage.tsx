@@ -27,7 +27,7 @@ export default function ProductImage({
   return (
     <div className={`relative aspect-[4/5] w-full ${className}`}>
       {photo ? (
-        <Image src={photo.src} alt={photo.alt} fill sizes={sizes} className="object-contain" />
+        <Image src={photo.src} alt={photo.alt} fill sizes={sizes} quality={90} className="object-contain" />
       ) : (
         <div className="absolute inset-[12%] flex flex-col items-center justify-center gap-2 rounded-md border border-dashed border-earth/30 text-center">
           <span className="text-sm font-medium text-earth-muted">[Product Image]</span>

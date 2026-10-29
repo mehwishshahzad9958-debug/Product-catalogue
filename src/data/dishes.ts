@@ -1,51 +1,79 @@
-import { existsSync } from "node:fs";
-import path from "node:path";
-
 /**
- * Dish photographs for the rotating platter (src/components/RotatingDishSection.tsx).
+ * Dishes for the interactive platter (src/components/RotatingDishSection.tsx) and the RASAM masala each
+ * one is paired with. This is the ONLY place where dish photos and product IDs are listed.
  *
- * HOW TO ADD YOUR PHOTOS
- * 1. Put each photo in public/images/dishes/ using the file names below (dish-1.webp ... dish-6.webp).
- *    Transparent-background cut-outs (WebP or PNG) work best; keep them roughly square, 800-1200px.
- * 2. That's it: any file that exists is picked up automatically and arranged evenly around the platter.
- *    Slots whose file is missing are skipped once at least one photo exists, so the ring stays balanced.
- * 3. Need a different name, a PNG, or more dishes? Edit the list below (add or change entries).
- *    Set `alt` to describe the dish, or leave it empty to treat the photo as decoration.
+ * The ORDER below is the clockwise order on the platter (starting at the top) AND the order of the
+ * previous / next arrows (they wrap around).
  *
- * Until the first photo is added, empty plate placeholders are shown so the layout can be reviewed.
+ * - `src`     photo in public/images/dishes/ (originals are never modified; crops are done with CSS).
+ * - `focus`   CSS object-position: the part of the photo kept in the middle of the slice / plate.
+ * - `zoom`    optional >1 scale that crops away dark pan rims or light edges baked into a photo.
+ * - `productId` must match an `id` in src/data/products.ts.
  */
-export const DISH_DIRECTORY = "/images/dishes";
+export const DISH_SLICE_COUNT = 6;
 
-export type DishSlot = {
-  /** File name inside public/images/dishes/ */
-  file: string;
-  /** Describes the dish for screen readers. Leave "" to mark the photo as decorative. */
+export type DishEntry = {
+  id: string;
+  /** Name shown to visitors and used in accessible labels. */
+  name: string;
+  src: string;
   alt: string;
+  focus?: string;
+  zoom?: number;
+  /** ID of the matching product in src/data/products.ts. */
+  productId: string;
 };
 
-export const dishSlots: DishSlot[] = [
-  { file: "dish-1.webp", alt: "" },
-  { file: "dish-2.webp", alt: "" },
-  { file: "dish-3.webp", alt: "" },
-  { file: "dish-4.webp", alt: "" },
-  { file: "dish-5.webp", alt: "" },
-  { file: "dish-6.webp", alt: "" },
+export const dishes: readonly DishEntry[] = [
+  {
+    id: "biryani",
+    name: "Biryani",
+    src: "/images/dishes/Biryani.png",
+    alt: "Chicken biryani with saffron rice",
+    focus: "50% 50%",
+    productId: "biryani-masala",
+  },
+  {
+    id: "shahi-paneer",
+    name: "Shahi Paneer",
+    src: "/images/dishes/Shahi Paneer (2).png",
+    alt: "Shahi paneer in a creamy tomato gravy",
+    focus: "50% 50%",
+    zoom: 1.2,
+    productId: "shahi-paneer-masala",
+  },
+  {
+    id: "paneer-masala",
+    name: "Paneer Masala with rice",
+    src: "/images/dishes/Paneer.png",
+    alt: "Paneer masala with rice in a black pan",
+    focus: "50% 58%",
+    zoom: 1.3,
+    productId: "paneer-masala",
+  },
+  {
+    id: "chole",
+    name: "Chole",
+    src: "/images/dishes/Chole.png",
+    alt: "Chole, chickpea curry garnished with coriander",
+    focus: "50% 50%",
+    productId: "chole-masala",
+  },
+  {
+    id: "sambar",
+    name: "Sambar",
+    src: "/images/dishes/Sambhar.png",
+    alt: "Sambar with drumstick and vegetables",
+    focus: "50% 50%",
+    productId: "sambar-masala",
+  },
+  {
+    id: "fruit-chaat",
+    name: "Fruit Chaat",
+    src: "/images/dishes/Fruit Chart.png",
+    alt: "Fruit chaat with banana, mango and pomegranate",
+    focus: "50% 50%",
+    zoom: 1.12,
+    productId: "chaat-masala",
+  },
 ];
-
-export type PlatterDish = {
-  key: string;
-  /** Public URL of the photo, or null for an empty placeholder plate. */
-  src: string | null;
-  alt: string;
-};
-
-/** Resolves the slots against the files that actually exist (runs on the server at build/render time). */
-export function getPlatterDishes(): PlatterDish[] {
-  const publicDir = path.join(process.cwd(), "public", DISH_DIRECTORY);
-  const present = dishSlots.filter((slot) => existsSync(path.join(publicDir, slot.file)));
-
-  if (present.length > 0) {
-    return present.map((slot) => ({ key: slot.file, src: `${DISH_DIRECTORY}/${slot.file}`, alt: slot.alt }));
-  }
-  return dishSlots.map((slot) => ({ key: slot.file, src: null, alt: "" }));
-}

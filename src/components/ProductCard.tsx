@@ -130,7 +130,7 @@ export default function ProductCard({
       <div className={`${cardColors.image} p-6`}>
         <ProductImage
           product={product}
-          sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 90vw"
+          sizes="(min-width: 1280px) 384px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
         />
       </div>
 

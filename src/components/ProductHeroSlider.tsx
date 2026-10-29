@@ -86,6 +86,7 @@ export default function ProductHeroSlider({
                     alt={image.alt}
                     fill
                     sizes="(min-width: 1024px) 40vw, (min-width: 640px) 70vw, 100vw"
+                    quality={90}
                     loading={i === 0 ? "eager" : "lazy"}
                     className={fit === "cover" ? "object-cover" : "object-contain"}
                     style={fit === "cover" ? { objectPosition: slide.objectPosition } : undefined}

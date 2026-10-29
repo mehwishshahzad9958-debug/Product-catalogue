@@ -370,3 +370,180 @@
     transition: none;
   }
 }
+
+/* ------------------------------------------------------------------------------------------------
+   Interactive dish platter (DishDiscovery / DishPlatter / FeaturedMasala)
+   The stage's data-sel attribute ("true" once a dish is chosen) drives every transition together.
+   ------------------------------------------------------------------------------------------------ */
+.dish-stage {
+  --dish-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dish-slot {
+  transition:
+    translate 0.9s var(--dish-ease),
+    scale 0.9s var(--dish-ease),
+    margin 0.9s var(--dish-ease);
+}
+
+.dish-panel {
+  transition:
+    opacity 0.6s ease 0.25s,
+    translate 0.9s var(--dish-ease) 0.15s,
+    max-height 0.9s var(--dish-ease);
+  max-height: 1400px;
+}
+
+.dish-caption {
+  transition: opacity 0.4s ease;
+}
+
+/* Six-dish view -> single-dish view: the slice layer fades out as the single plate fades in */
+.dish-sectors {
+  transition: opacity 0.6s ease, visibility 0s;
+}
+.dish-single {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.dish-photo {
+  opacity: 0;
+  scale: 1.1;
+  transition: opacity 0.6s ease, scale 0.9s var(--dish-ease);
+}
+.dish-photo[data-active="true"] {
+  opacity: 1;
+  scale: 1;
+}
+
+.dish-stage[data-sel="true"] .dish-sectors {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.6s ease, visibility 0s 0.6s;
+}
+.dish-stage[data-sel="true"] .dish-single {
+  opacity: 1;
+}
+.dish-stage[data-sel="true"] .dish-caption {
+  opacity: 0;
+}
+
+/* Small screens: the plate shrinks above the masala (no sideways move) */
+.dish-stage[data-sel="true"] .dish-slot {
+  scale: 0.66;
+  margin-block: -16%;
+}
+.dish-stage[data-sel="false"] .dish-panel {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    translate 0.5s ease,
+    max-height 0.6s ease,
+    visibility 0s 0.6s;
+}
+
+@media (min-width: 1024px) {
+  /* Six-dish view: big plate, centred in the whole section (the empty right column is invisible) */
+  .dish-stage[data-sel="false"] .dish-slot {
+    translate: 50% 0;
+    scale: 1.2;
+  }
+  .dish-stage[data-sel="false"] .dish-panel {
+    max-height: none;
+    overflow: visible;
+    translate: 2.5rem 0;
+  }
+  /* Selected: plate slides to the left column and shrinks */
+  .dish-stage[data-sel="true"] .dish-slot {
+    translate: 0 0;
+    scale: 0.92;
+    margin-block: 0;
+  }
+}
+
+/* Static lighting and bevels over the rotating wood (light never spins with the plate) */
+.dish-sheen-rim {
+  background:
+    radial-gradient(120% 120% at 28% 18%, rgba(255, 236, 190, 0.34), transparent 42%),
+    radial-gradient(100% 100% at 78% 92%, rgba(20, 8, 0, 0.3), transparent 56%);
+  box-shadow:
+    inset 0 0 0 1.5px rgba(50, 28, 10, 0.7),
+    inset 0 3px 6px rgba(255, 225, 170, 0.45),
+    inset 0 -10px 18px rgba(35, 18, 6, 0.5);
+}
+.dish-sheen-well {
+  background: radial-gradient(circle at 30% 22%, rgba(255, 240, 200, 0.14), transparent 50%);
+  box-shadow:
+    inset 0 7px 16px rgba(25, 12, 3, 0.7),
+    inset 0 0 0 2px rgba(50, 28, 10, 0.85),
+    0 1px 0 rgba(255, 225, 170, 0.55);
+}
+
+/* Slices: hover lift and keyboard-focus ring */
+.dish-slice {
+  transition: filter 0.25s ease, scale 0.2s ease;
+}
+.dish-slice-ring {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.dish-slice:hover,
+.dish-slice:focus-visible {
+  filter: brightness(1.08) saturate(1.1);
+}
+.dish-slice:hover .dish-slice-ring,
+.dish-slice:focus-visible .dish-slice-ring {
+  opacity: 1;
+}
+.dish-slice:active {
+  scale: 0.985;
+}
+
+/* Rotation pauses on hover, keyboard focus and once a dish is selected (it never drifts) */
+.dish-stage[data-sel="true"] .dish-spin,
+.dish-plate:hover .dish-spin,
+.dish-plate:focus-within .dish-spin {
+  animation-play-state: paused;
+}
+
+/* Product pack sliding in when the dish changes */
+@keyframes masala-in {
+  from {
+    opacity: 0;
+    transform: translateX(var(--masala-dx, 36px)) scale(0.82);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.masala-in {
+  animation: masala-in 0.7s cubic-bezier(0.34, 1.4, 0.64, 1) var(--masala-delay, 0s) both;
+}
+
+/* Reduced motion: everything still works, it just changes instantly */
+@media (prefers-reduced-motion: reduce) {
+  .dish-slot,
+  .dish-panel,
+  .dish-caption,
+  .dish-sectors,
+  .dish-single,
+  .dish-photo,
+  .dish-slice,
+  .dish-slice-ring,
+  .dish-stage[data-sel="false"] .dish-panel,
+  .dish-stage[data-sel="true"] .dish-sectors {
+    transition: none;
+  }
+  .dish-photo {
+    scale: 1;
+  }
+  .masala-in {
+    animation: none;
+  }
+}

@@ -95,6 +95,7 @@ export default function HeroVisual() {
                 alt="RASAM spices product collection"
                 fill
                 priority
+                quality={90}
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-contain"
               />
