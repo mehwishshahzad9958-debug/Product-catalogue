@@ -1,10 +1,22 @@
+import Image from "next/image";
 import Link from "next/link";
 import BrandMark from "@/components/BrandMark";
 import { company, navLinks } from "@/data/company";
 
 export default function Footer() {
   return (
-<footer className="spice-footer-bg border-t border-turmeric bg-forest-deep pb-8 pt-16 text-ivory [&_:focus-visible]:outline-turmeric">
+<footer className="relative isolate border-t border-turmeric bg-forest-deep pb-8 pt-16 text-ivory [&_:focus-visible]:outline-turmeric">
+      {/* Star-anise photo under a dark green wash (lazy-loaded and resized by next/image) */}
+      <Image
+        src="/images/star-anise-background.jpg"
+        alt=""
+        aria-hidden="true"
+        fill
+        sizes="100vw"
+        quality={75}
+        className="-z-10 object-cover object-center"
+      />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(rgba(29,41,32,0.9),rgba(29,41,32,0.96))]" />
       <div className="mx-auto grid max-w-7xl gap-12 px-6 md:grid-cols-[1.4fr_1fr_1.4fr] lg:px-10">
         <div>
           <BrandMark tone="light" />

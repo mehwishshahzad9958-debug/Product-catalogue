@@ -1,6 +1,6 @@
 
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Geist, Geist_Mono } from "next/font/google";
+import { Cormorant_Garamond, Geist, Great_Vibes } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -19,9 +19,12 @@ const display = Cormorant_Garamond({
   display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Script face for the tagline (was a render-blocking @import from fonts.googleapis.com in globals.css).
+const script = Great_Vibes({
+  variable: "--font-script",
+  weight: "400",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -41,7 +44,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${display.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${script.variable} ${display.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <a

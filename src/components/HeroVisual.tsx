@@ -58,7 +58,23 @@ export default function HeroVisual() {
       schedule();
     };
 
-    window.addEventListener("scroll", schedule, { passive: true });
+    // The scroll drift and the endless float only matter while the hero is on screen: outside it the scroll
+    // listener is removed (no getBoundingClientRect on every scroll frame) and the float animations pause.
+    let listening = false;
+    const setLive = (live: boolean) => {
+      root.dataset.heroLive = String(live);
+      if (live && !listening) {
+        window.addEventListener("scroll", schedule, { passive: true });
+        listening = true;
+        schedule();
+      } else if (!live && listening) {
+        window.removeEventListener("scroll", schedule);
+        listening = false;
+      }
+    };
+    const observer = new IntersectionObserver(([entry]) => setLive(entry.isIntersecting), { rootMargin: "100px 0px" });
+    observer.observe(card);
+
     if (finePointer) {
       card.addEventListener("pointermove", onMove, { passive: true });
       card.addEventListener("pointerleave", onLeave);
@@ -66,6 +82,7 @@ export default function HeroVisual() {
     schedule();
 
     return () => {
+      observer.disconnect();
       window.removeEventListener("scroll", schedule);
       card.removeEventListener("pointermove", onMove);
       card.removeEventListener("pointerleave", onLeave);

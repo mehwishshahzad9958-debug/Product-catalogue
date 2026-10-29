@@ -19,11 +19,9 @@ export default function Home() {
     <>
       {/* HERO: spice photograph (blurred, visible around the card) + solid charcoal card with a gold border */}
       <section className="relative isolate overflow-hidden px-4 pb-12 pt-8 sm:px-6 lg:px-10 lg:pb-20 lg:pt-12">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 scale-110 bg-cover bg-center bg-no-repeat blur-sm"
-          style={{ backgroundImage: "url('/images/hero-background.png')" }}
-        />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 scale-110 blur-sm">
+          <Image src="/images/hero-background.png" alt="" fill priority sizes="100vw" quality={75} className="object-cover object-center" />
+        </div>
         {/* Light tint only, so the photograph stays visible around the card */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-charcoal/30" />
         {/* Fades the photo into the ivory "Our range" section instead of ending in a hard edge */}

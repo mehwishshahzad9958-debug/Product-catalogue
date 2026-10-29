@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import "tailwindcss";
 
 /*
@@ -63,7 +62,6 @@
   --ease-premium: var(--rasam-ease-premium);
 
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
   /* Headings: Cormorant Garamond (loaded in layout.tsx) with a system serif fallback. */
   --font-serif: var(--font-display), "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
 }
@@ -143,7 +141,7 @@
 .rasam-tagline {
   width: 100%;
   margin-inline: auto;
-  font-family: 'Great Vibes', cursive;
+  font-family: var(--font-script), 'Great Vibes', cursive;
   font-size: clamp(2.75rem, 6.2vw, 4.5rem);
   font-weight: 400;
   line-height: 1.15;
@@ -256,15 +254,6 @@
     transition: none;
   }
 }
-/* Star anise background for the RASAM footer */
-.spice-footer-bg {
-  background-image:
-    linear-gradient(rgba(29, 41, 32, 0.9), rgba(29, 41, 32, 0.96)),
-    url("/images/star-anise-background.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 
 /*
  * Home hero motion (HeroVisual.tsx and the .hero-in classes in page.tsx). Everything animates
@@ -320,6 +309,12 @@
 
 .hero-float {
   animation: hero-float 7s ease-in-out 1.7s infinite;
+}
+
+/* Pause the endless hero loops while the hero is scrolled off screen (HeroVisual.tsx sets data-hero-live). */
+[data-hero-live="false"] .hero-float,
+[data-hero-live="false"] .hero-shadow {
+  animation-play-state: paused;
 }
 
 @keyframes hero-float {
@@ -524,6 +519,31 @@
 }
 .dish-slice:active {
   scale: 0.985;
+}
+
+/* Wooden texture. It is far below the fold, so it is only requested once DishDiscovery marks the stage as
+   near the viewport (data-near); without scripting it is applied straight away. */
+.dish-wood {
+  background-color: #4a2f1b;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+.dish-wood-fine {
+  background-size: 170%;
+  background-position: 30% 70%;
+}
+.dish-stage[data-near="true"] .dish-wood {
+  background-image: url("/images/wood-grain.webp");
+}
+@media (scripting: none) {
+  .dish-wood {
+    background-image: url("/images/wood-grain.webp");
+  }
+}
+
+/* The endless spin pauses while the platter is scrolled off screen (data-visible is set by DishDiscovery) */
+.dish-stage[data-visible="false"] .dish-spin {
+  animation-play-state: paused;
 }
 
 /* Rotation pauses on hover, keyboard focus and once a dish is selected (it never drifts) */

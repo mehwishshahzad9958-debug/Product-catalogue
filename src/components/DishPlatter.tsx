@@ -37,7 +37,6 @@ type Props = {
   onReset: () => void;
 };
 
-const WOOD = "url(/images/wood-grain.jpg)";
 const DIVIDER = "#35271D"; // thin, dark, natural
 
 /**
@@ -97,13 +96,11 @@ export default function DishPlatter({ items, selected, onSelect, onReset }: Prop
       {/* The rotating wooden body: rim + plate surface + food + dividers */}
       <div
         ref={spinRef}
-        className="dish-spin absolute inset-0 animate-[spin_40s_linear_infinite] overflow-hidden rounded-full will-change-transform motion-reduce:animate-none"
-        style={{ backgroundImage: WOOD, backgroundSize: "cover", backgroundPosition: "50% 50%" }}
+        className="dish-spin dish-wood absolute inset-0 animate-[spin_40s_linear_infinite] overflow-hidden rounded-full will-change-transform motion-reduce:animate-none"
       >
         {/* Inner plate surface: a slightly darker, finer cut of the wood, inside the rim */}
         <div
-          className="absolute inset-[6%] overflow-hidden rounded-full"
-          style={{ backgroundImage: WOOD, backgroundSize: "170%", backgroundPosition: "30% 70%" }}
+          className="dish-wood dish-wood-fine absolute inset-[6%] overflow-hidden rounded-full"
         >
           {/* Single-dish plate: the selected food, naturally set on the wood */}
           <div className="dish-single absolute inset-0" aria-hidden={!isSelected}>
@@ -158,7 +155,7 @@ export default function DishPlatter({ items, selected, onSelect, onReset }: Prop
                       src={dish.src}
                       alt=""
                       fill
-                      sizes="(min-width: 1024px) 28vw, 60vw"
+                      sizes="(min-width: 1024px) 40vw, 88vw"
                       quality={90}
                       className="object-cover"
                       style={{
