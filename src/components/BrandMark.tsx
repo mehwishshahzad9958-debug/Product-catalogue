@@ -15,7 +15,7 @@ export default function BrandMark({ tone = "dark" }: BrandMarkProps) {
 
   return (
     <Link href="/" className="inline-flex items-baseline gap-2" aria-label="RASAM Spices home">
-      <span className={`font-serif text-2xl font-semibold tracking-wide ${main}`}>RASAM</span>
+      <span className={`font-serif text-3xl font-semibold tracking-[0.14em] ${main}`}>RASAM</span>
     </Link>
   );
 }

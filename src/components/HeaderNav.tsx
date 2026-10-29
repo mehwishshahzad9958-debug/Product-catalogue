@@ -39,19 +39,19 @@ export default function HeaderNav({ links }: { links: readonly NavLink[] }) {
 
   const linkClass = (href: string) =>
     isActive(pathname, href)
-      ? "text-green underline decoration-turmeric decoration-2 underline-offset-8"
-      : "text-earth hover:text-green";
+      ? "text-green underline decoration-turmeric decoration-[1.5px] underline-offset-[10px]"
+      : "text-earth/80 hover:text-spice";
 
   return (
     <>
       {/* Desktop */}
-      <ul className="hidden items-center gap-8 md:flex">
+      <ul className="hidden items-center gap-9 md:flex">
         {links.map((link) => (
           <li key={link.href}>
             <Link
               href={link.href}
               aria-current={isActive(pathname, link.href) ? "page" : undefined}
-              className={`text-base font-medium transition-colors ${linkClass(link.href)}`}
+              className={`text-[13px] font-semibold uppercase tracking-[0.16em] transition-colors ${linkClass(link.href)}`}
             >
               {link.label}
             </Link>
@@ -62,7 +62,7 @@ export default function HeaderNav({ links }: { links: readonly NavLink[] }) {
       {/* Mobile toggle */}
       <button
         type="button"
-        className="inline-flex h-11 items-center gap-2 rounded-md border border-earth/20 px-3 text-sm font-medium text-earth md:hidden"
+        className="inline-flex h-11 items-center gap-2 rounded-full border border-earth/25 px-4 text-xs font-semibold uppercase tracking-[0.14em] text-earth md:hidden"
         aria-expanded={open}
         aria-controls={menuId}
         onClick={() => setOpen((value) => !value)}
@@ -79,7 +79,7 @@ export default function HeaderNav({ links }: { links: readonly NavLink[] }) {
       <div
         id={menuId}
         hidden={!open}
-        className="absolute inset-x-0 top-full border-b border-earth/10 bg-ivory shadow-sm md:hidden"
+        className="absolute inset-x-0 top-full border-b border-turmeric/40 bg-parchment shadow-card md:hidden"
       >
         <ul className="mx-auto flex max-w-7xl flex-col px-6 py-2">
           {links.map((link) => (
@@ -88,7 +88,7 @@ export default function HeaderNav({ links }: { links: readonly NavLink[] }) {
                 href={link.href}
                 aria-current={isActive(pathname, link.href) ? "page" : undefined}
                 onClick={() => setOpen(false)}
-                className={`block py-4 text-base font-medium ${linkClass(link.href)}`}
+                className={`block py-4 text-sm font-semibold uppercase tracking-[0.16em] ${linkClass(link.href)}`}
               >
                 {link.label}
               </Link>

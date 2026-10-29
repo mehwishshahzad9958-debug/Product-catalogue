@@ -6,19 +6,29 @@
  * so existing components pick up the new colours automatically.
  */
 :root {
-  --brand-parchment: #fbf7ec;    /* Light golden ivory (sampled from the approved reference): page background */
-  --brand-ivory: #fdfaf2;        /* Warm ivory: header and content surfaces */
-  --brand-ivory-deep: #ebddc4;   /* Pale beige: product cards and panels */
-  --brand-green: #276130;        /* Heritage green (logo): nav accents, outlines */
-  --brand-green-dark: #1d4a25;   /* hover state for heritage green */
-  --brand-forest: #355630;       /* Deep forest green: footer, enquiry band */
-  --brand-olive: #75792e;        /* Olive: subtle decorative accents */
-  --brand-spice: #8c4327;        /* Terracotta brown: buttons and highlights */
-  --brand-spice-dark: #6f3520;   /* hover state for terracotta */
-  --brand-turmeric: #d4a65a;     /* Muted saffron gold: borders, dividers */
-  --brand-gold-text: #8a6220;    /* darker gold for any gold text on light (AA) */
-  --brand-earth: #3d2c1f;        /* Earth brown: text and headings */
-  --brand-earth-muted: #65574d;
+  /* ---- RASAM design tokens: premium Indian spice house x editorial food magazine ---- */
+  --brand-charcoal: #171713;     /* Deep charcoal: hero card, dark bands */
+  --brand-parchment: #f5ecdd;    /* Warm ivory: page background */
+  --brand-ivory: #fbf6ea;        /* Lighter ivory: cards and raised surfaces */
+  --brand-ivory-deep: #eadcc3;   /* Sand: quiet panels, image frames */
+  --brand-green: #354638;        /* Forest green: links, outlines, enquiry band */
+  --brand-green-dark: #263428;   /* hover state for forest green */
+  --brand-forest: #2b3a2e;       /* Deeper forest: dark green surfaces */
+  --brand-forest-deep: #1d2920;  /* Footer */
+  --brand-olive: #75792e;
+  --brand-spice: #a9432b;        /* Terracotta: primary actions, accents */
+  --brand-spice-dark: #873320;
+  --brand-turmeric: #c89a45;     /* Muted saffron gold: hairlines, ornaments, borders on dark */
+  --brand-gold-text: #8a6420;    /* gold for text on light surfaces (AA) */
+  --brand-earth: #2b251d;        /* Body text and headings on light */
+  --brand-earth-muted: #5e5448;
+
+  /* Radii, shadows and motion (use these instead of one-off values) */
+  --rasam-radius-card: 0.875rem;
+  --rasam-radius-frame: 1.25rem;
+  --rasam-shadow-card: 0 1px 2px rgb(23 23 19 / 0.06), 0 12px 28px -14px rgb(23 23 19 / 0.28);
+  --rasam-shadow-lift: 0 2px 4px rgb(23 23 19 / 0.08), 0 22px 40px -16px rgb(23 23 19 / 0.38);
+  --rasam-ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
 
   --background: var(--brand-parchment);
   --foreground: var(--brand-earth);
@@ -27,6 +37,7 @@
 }
 
 @theme inline {
+  --color-charcoal: var(--brand-charcoal);
   --color-spice: var(--brand-spice);
   --color-spice-dark: var(--brand-spice-dark);
   --color-turmeric: var(--brand-turmeric);
@@ -34,6 +45,7 @@
   --color-green: var(--brand-green);
   --color-green-dark: var(--brand-green-dark);
   --color-forest: var(--brand-forest);
+  --color-forest-deep: var(--brand-forest-deep);
   --color-olive: var(--brand-olive);
   --color-parchment: var(--brand-parchment);
   --color-ivory: var(--brand-ivory);
@@ -44,10 +56,16 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
+  --shadow-card: var(--rasam-shadow-card);
+  --shadow-lift: var(--rasam-shadow-lift);
+  --radius-card: var(--rasam-radius-card);
+  --radius-frame: var(--rasam-radius-frame);
+  --ease-premium: var(--rasam-ease-premium);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  /* Headings: a system serif stack, so no extra font download is needed. */
-  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  /* Headings: Cormorant Garamond (loaded in layout.tsx) with a system serif fallback. */
+  --font-serif: var(--font-display), "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
 }
 
 @layer base {
@@ -78,6 +96,15 @@
   :focus-visible {
     outline: 2px solid var(--brand-spice);
     outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    letter-spacing: -0.005em;
   }
 
   a {
@@ -121,12 +148,12 @@
   font-weight: 400;
   line-height: 1.15;
   /* Brochure-style metallic gold lettering */
-  background-image: linear-gradient(100deg, #8f5f17 0%, #c8923a 38%, #a9731f 62%, #7f5412 100%);
+  background-image: linear-gradient(100deg, #d9b160 0%, #efd08a 38%, #c89a45 62%, #e3be72 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(1px 2px 1px rgba(61, 44, 31, 0.18));
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
 }
 
 .rasam-tagline-image {
@@ -142,13 +169,12 @@
  * hero above and the green enquiry band below. Colours: Warm Ivory 250,245,233 / lighter ivory 252,249,240.
  */
 .spice-overlay {
-  background: linear-gradient(
-    180deg,
-    rgba(251, 247, 236, 0.85) 0%,
-    rgba(252, 249, 240, 0) 7%,
-    rgba(252, 249, 240, 0) 93%,
-    rgba(251, 247, 236, 0.5) 100%
-  );
+  background: linear-gradient(180deg, rgba(245, 236, 221, 0.6) 0%, rgba(245, 236, 221, 0) 12%, rgba(245, 236, 221, 0) 88%, rgba(245, 236, 221, 0.6) 100%);
+}
+.spice-overlay-dark {
+  background:
+    radial-gradient(70% 60% at 50% 48%, rgba(200, 154, 69, 0.16), transparent 70%),
+    linear-gradient(180deg, rgba(23, 23, 19, 0.7) 0%, rgba(23, 23, 19, 0.15) 30%, rgba(23, 23, 19, 0.15) 70%, rgba(23, 23, 19, 0.7) 100%);
 }
 
 /*
@@ -233,12 +259,8 @@
 /* Star anise background for the RASAM footer */
 .spice-footer-bg {
   background-image:
-    linear-gradient(
-      rgba(42, 78, 43, 0.72),
-      rgba(42, 78, 43, 0.82)
-    ),
+    linear-gradient(rgba(29, 41, 32, 0.9), rgba(29, 41, 32, 0.96)),
     url("/images/star-anise-background.jpg");
-
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -311,7 +333,7 @@
 }
 
 .hero-glow-in {
-  background: radial-gradient(circle at 50% 52%, rgba(212, 166, 90, 0.38) 0%, rgba(212, 166, 90, 0.16) 42%, rgba(212, 166, 90, 0) 68%);
+  background: radial-gradient(circle at 50% 52%, rgba(200, 154, 69, 0.34) 0%, rgba(200, 154, 69, 0.13) 42%, rgba(200, 154, 69, 0) 68%);
   animation: hero-glow 1.8s ease-out 0.1s both;
 }
 
@@ -327,7 +349,7 @@
 }
 
 .hero-shadow {
-  background: radial-gradient(ellipse at 50% 50%, rgba(61, 44, 31, 0.32) 0%, rgba(61, 44, 31, 0) 70%);
+  background: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 70%);
   animation: hero-shadow-in 1.4s ease-out 0.3s both, hero-shadow-pulse 7s ease-in-out 1.7s infinite;
 }
 
@@ -546,4 +568,106 @@
   .masala-in {
     animation: none;
   }
+}
+
+
+/* ------------------------------------------------------------------------------------------------
+   Reusable editorial components (design system)
+   ------------------------------------------------------------------------------------------------ */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--brand-gold-text);
+}
+.eyebrow::before {
+  content: "";
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+}
+.eyebrow-light {
+  color: var(--brand-turmeric);
+}
+
+.display-heading {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+}
+
+.btn {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  padding-inline: 1.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background-color 0.25s var(--rasam-ease-premium), color 0.25s var(--rasam-ease-premium),
+    border-color 0.25s var(--rasam-ease-premium), transform 0.25s var(--rasam-ease-premium);
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn-primary {
+  background: var(--brand-spice);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--brand-spice-dark);
+}
+.btn-ghost-light {
+  border: 1px solid rgb(245 236 221 / 0.55);
+  color: var(--brand-parchment);
+}
+.btn-ghost-light:hover {
+  border-color: var(--brand-turmeric);
+  color: var(--brand-turmeric);
+}
+.btn-ghost-dark {
+  border: 1px solid var(--brand-green);
+  color: var(--brand-green);
+}
+.btn-ghost-dark:hover {
+  background: var(--brand-green);
+  color: var(--brand-ivory);
+}
+.btn-light {
+  background: var(--brand-parchment);
+  color: var(--brand-forest-deep);
+}
+.btn-light:hover {
+  background: #fff;
+}
+
+/* A thin gold rule between sections */
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--brand-turmeric) 20%, var(--brand-turmeric) 80%, transparent);
+  opacity: 0.7;
+}
+
+/* Image frame: consistent crop, radius and hairline for photography */
+.image-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--rasam-radius-frame);
+  box-shadow: var(--rasam-shadow-lift);
+}
+.image-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgb(200 154 69 / 0.55);
+  pointer-events: none;
 }

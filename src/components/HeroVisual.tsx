@@ -74,8 +74,8 @@ export default function HeroVisual() {
   }, []);
 
   return (
-    <div ref={rootRef} className="relative mx-auto w-full max-w-[600px]">
-      <div className="relative mt-[12%] aspect-[417/381] w-full">
+    <div ref={rootRef} className="relative mx-auto w-full max-w-[680px]">
+      <div className="relative mt-[4%] aspect-[1679/1318] w-full">
         {/* Soft saffron glow behind the products */}
         <div className="hero-par pointer-events-none absolute inset-[-8%]" style={{ "--par": "-14px", "--drift": "10px" } as React.CSSProperties}>
           <div className="hero-glow-in h-full w-full rounded-full" />

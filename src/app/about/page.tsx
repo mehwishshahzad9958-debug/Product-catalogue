@@ -8,7 +8,7 @@ export default function AboutPage() {
   return (
     <div className="text-earth">
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-12 lg:py-28">
-        <p className="mb-5 text-xs font-semibold uppercase tracking-[0.28em] text-spice">
+        <p className="eyebrow">
           Our Story
         </p>
 
@@ -23,7 +23,7 @@ export default function AboutPage() {
         </p>
 
         <div className="mt-14 grid gap-6 md:grid-cols-2">
-          <div className="rounded-2xl bg-ivory-deep p-8 md:p-10">
+          <div className="rounded-card bg-ivory-deep p-8 md:p-10">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-spice">
               Our Purpose
             </p>
@@ -36,7 +36,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-earth/10 p-8 md:p-10">
+          <div className="rounded-card border border-turmeric/40 bg-ivory p-8 md:p-10">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-spice">
               Our Values
             </p>

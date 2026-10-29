@@ -17,7 +17,7 @@ type Props = {
 };
 
 const arrowButton =
-  "inline-flex h-12 w-12 items-center justify-center rounded-full border-2 border-green bg-ivory text-green shadow-sm transition-[transform,background-color,color] duration-200 hover:bg-green hover:text-ivory active:scale-90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-spice";
+  "inline-flex h-12 w-12 items-center justify-center rounded-full border border-turmeric bg-charcoal/40 text-turmeric backdrop-blur-sm transition-[transform,background-color,color] duration-200 hover:bg-turmeric hover:text-charcoal active:scale-90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-parchment";
 
 /** The matching RASAM masala: the pack, its name and two arrows. Nothing else. */
 export default function FeaturedMasala({
@@ -51,12 +51,12 @@ export default function FeaturedMasala({
           <ProductImage
             product={product}
             sizes="(min-width: 1024px) 420px, 80vw"
-            className="max-w-[240px] drop-shadow-2xl sm:max-w-[300px] lg:max-w-[380px]"
+            className="max-w-[240px] drop-shadow-[0_24px_30px_rgba(0,0,0,0.55)] sm:max-w-[300px] lg:max-w-[380px]"
           />
         ) : (
           <p className="py-16 text-earth-muted">The matching masala is not available yet.</p>
         )}
-        <h3 className="mt-4 font-serif text-3xl text-earth sm:text-4xl lg:text-5xl">{name}</h3>
+        <h3 className="mt-4 display-heading text-4xl text-parchment sm:text-5xl lg:text-6xl">{name}</h3>
       </div>
 
       <div className="mt-5 flex items-center gap-8">

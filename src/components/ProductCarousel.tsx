@@ -58,9 +58,9 @@ export default function ProductCarousel({ category, products }: ProductCarouselP
   return (
     <div className="space-y-6">
       {/* Category header with title, summary, view all link, and scroll arrows */}
-      <div className="flex flex-col gap-4 border-b border-turmeric/40 pb-5 sm:flex-row sm:items-end sm:justify-between">
+      <div className="flex flex-col gap-4 border-b border-turmeric/40 pb-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h3 className="font-serif text-2xl text-earth transition-colors hover:text-spice sm:text-3xl">
+          <h3 className="font-serif text-3xl font-semibold text-earth transition-colors hover:text-spice sm:text-4xl">
             <Link
               href={`/products#${category.id}`}
               className="focus-visible:rounded-md focus-visible:outline-spice"
@@ -76,7 +76,7 @@ export default function ProductCarousel({ category, products }: ProductCarouselP
         <div className="flex items-center justify-between gap-4 shrink-0 sm:justify-end">
           <Link
             href={`/products#${category.id}`}
-            className="group inline-flex items-center gap-1.5 text-sm font-semibold text-spice underline decoration-spice/30 underline-offset-4 transition-colors hover:text-spice-dark hover:decoration-spice focus-visible:rounded-md focus-visible:outline-spice"
+            className="group inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-spice underline decoration-spice/30 underline-offset-4 transition-colors hover:text-spice-dark hover:decoration-spice focus-visible:rounded-md focus-visible:outline-spice"
           >
             <span>View all ({products.length})</span>
             <span
