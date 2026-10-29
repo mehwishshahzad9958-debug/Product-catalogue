@@ -8,7 +8,8 @@ const INTERVAL_MS = 4500;
 
 /**
  * Auto-advancing image slider with a fade transition and pagination dots.
- * - Advances every 4.5 seconds; pauses while the pointer is over it or focus is inside it.
+ * - Advances every 4.5 seconds; pauses only while keyboard focus is inside it (the mouse pointer never pauses it).
+ * - Clicking or tapping a dot never leaves it paused: it only restarts the 4.5 seconds.
  * - With `prefers-reduced-motion` it does not auto-advance or fade; the dots still work.
  * - Slides are stacked and cross-fade, so the frame never changes size.
  */
@@ -23,12 +24,11 @@ export default function ProductHeroSlider({
   aspectClassName = "aspect-[4/3] sm:aspect-[5/4]",
 }: ProductHeroSliderProps) {
   const [index, setIndex] = useState(0);
-  const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
 
   const count = slides.length;
-  const paused = hovered || focused;
+  const paused = focused;
   const autoplay = count > 1 && !paused && !reducedMotion;
 
   // Follow the visitor's reduced-motion setting, including changes while the page is open.
@@ -55,9 +55,8 @@ export default function ProductHeroSlider({
       aria-roledescription="carousel"
       aria-label="RASAM Spices product gallery"
       className={`relative w-full overflow-hidden rounded-2xl border border-turmeric/60 bg-ivory-deep/50 ${aspectClassName}`}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onFocus={() => setFocused(true)}
+      // Keyboard focus only: a mouse click on a dot also focuses it, which must not stop autoplay.
+      onFocus={(event) => setFocused(event.target.matches(":focus-visible"))}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
       }}

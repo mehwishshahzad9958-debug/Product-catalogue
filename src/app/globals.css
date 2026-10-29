@@ -672,6 +672,47 @@
   pointer-events: none;
 }
 
+/*
+ * Product / inventory card: same language as the homepage hero card (charcoal surface, fine gold
+ * border, hairline gold inset, warm glow behind the product). Used by ProductCard.tsx.
+ */
+.rasam-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--rasam-radius-card);
+  border: 1px solid rgb(200 154 69 / 0.6);
+  background: var(--brand-charcoal);
+  color: var(--brand-parchment);
+  box-shadow: var(--rasam-shadow-card);
+  transition: transform 0.3s var(--rasam-ease-premium), box-shadow 0.3s var(--rasam-ease-premium),
+    border-color 0.3s var(--rasam-ease-premium);
+}
+.rasam-card::after {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: calc(var(--rasam-radius-card) - 5px);
+  border: 1px solid rgb(200 154 69 / 0.2);
+  pointer-events: none;
+}
+.rasam-card:hover {
+  transform: translateY(-4px);
+  border-color: rgb(200 154 69 / 0.95);
+  box-shadow: var(--rasam-shadow-lift);
+}
+.rasam-card-media {
+  background: radial-gradient(70% 60% at 50% 55%, rgb(200 154 69 / 0.16), transparent 72%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rasam-card,
+  .rasam-card:hover {
+    transform: none;
+    transition: none;
+  }
+}
+
 /* Floating star-anise link: gentle bob; still for reduced-motion visitors */
 @keyframes star-float {
   0%,

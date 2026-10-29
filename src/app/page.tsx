@@ -26,6 +26,11 @@ export default function Home() {
         />
         {/* Light tint only, so the photograph stays visible around the card */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-charcoal/30" />
+        {/* Fades the photo into the ivory "Our range" section instead of ending in a hard edge */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-20 bg-linear-to-b from-transparent to-parchment lg:h-28"
+        />
 
         <div
           data-hero-card
@@ -78,12 +83,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* DISH PLATTER: charcoal band with the spice photograph sunk into it */}
-      <div className="relative isolate overflow-hidden border-y border-turmeric/40">
-        <SpiceBackdrop tone="dark" />
-        <RotatingDishSection />
-      </div>
-
+  
       {/* OUR RANGE: quiet ivory */}
       <section id="our-range" className="bg-parchment py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -107,6 +107,12 @@ export default function Home() {
           </div>
         </div>
       </section>
+         {/* DISH PLATTER: charcoal band with the spice photograph sunk into it */}
+      <div className="relative isolate overflow-hidden border-y border-turmeric/40">
+        <SpiceBackdrop tone="dark" />
+        <RotatingDishSection />
+      </div>
+
 
       {/* ABOUT: image-led panel beside the story */}
       <section className="bg-ivory-deep/60 py-20 lg:py-28">
